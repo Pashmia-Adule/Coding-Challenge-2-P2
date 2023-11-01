@@ -1,0 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CapsuleMove : MonoBehaviour
+{
+    float movementSpeed;
+    float horiMovement; 
+    float vertMovement; 
+    float jumpHeight = 7f; //how high the object will jump
+    Rigidbody playerRB;
+    // Start is called before the first frame update
+    void Start()
+    {
+        movementSpeed = 3; //how fast the object would move
+        playerRB = GetComponent<Rigidbody>();
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {  
+    MoveGameObject();  //custom Method to mak ethe game object Move
+    JumpGameObject();  //custom Method to mak ethe game object Jump
+    }
+    
+    void MoveGameObject()
+    
+    {
+        horiMovement = Input.GetAxis("Horizontal"); 
+        vertMovement = Input.GetAxis ("Vertical"); 
+
+        transform.Translate(horiMovement * Time.deltaTime * movementSpeed,0,0);  //object would move on X axis 
+        transform.Translate(0,0,vertMovement * Time.deltaTime * movementSpeed); //object would move on Z axis
+
+        transform.Translate(horiMovement * Time.deltaTime * movementSpeed, 0, vertMovement * Time.deltaTime * movementSpeed);
+    }
+    
+
+    void JumpGameObject()
+    {
+
+     
+    
+    if (Input.GetButtonDown("Jump")){
+
+
+
+        playerRB.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse); //the mass of the object * the jumpHeight
+    }
+}
+}
